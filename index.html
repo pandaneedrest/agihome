@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGI Work Lab - Prompt Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <div class="logo">AGI Work Lab</div>
+            </div>
+            <div class="nav-right">
+                <select class="language-select">
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                </select>
+                <button class="theme-toggle">🌓</button>
+                <a href="https://chat.deepseek.com/" class="start-button" target="_blank">开始使用</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>提示词库</h1>
+            <p class="subtitle">探索 AGI Work Lab 提示词样例，挖掘更多可能</p>
+        </section>
+
+        <section class="categories">
+            <div class="category-filters">
+                <button class="filter-btn active">精选</button>
+                <button class="filter-btn">研究</button>
+                <button class="filter-btn">生活</button>
+                <button class="filter-btn">数据分析</button>
+                <button class="filter-btn">教育</button>
+                <button class="filter-btn">生产力</button>
+                <button class="filter-btn">这也行</button>
+            </div>
+        </section>
+
+        <section class="prompt-grid">
+            <!-- Prompt cards will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <div class="modal" id="promptModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content code-editor-style">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span class="prompt-title">提示词详情</span>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-edit" id="editBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        编辑
+                    </button>
+                    <button class="btn btn-copy" id="copyAllBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        复制全部
+                    </button>
+                    <button class="btn btn-copy-markdown" id="copyMarkdownBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        复制为 Markdown
+                    </button>
+                    <button class="btn btn-preview" id="previewBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        预览
+                    </button>
+                    <button class="modal-close" id="closeModalBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <!-- 提示词部分（必选） -->
+                <div class="editor-section html-section">
+                    <div class="editor-header">
+                        <div class="editor-tab">
+                            <span class="file-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            </span>
+                            <span class="file-name">提示词 <span class="required">*</span></span>
+                        </div>
+                        <div class="tab-actions">
+                            <button class="btn-copy-section" data-section="prompt">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea id="promptTextarea" class="content-textarea" readonly></textarea>
+                    </div>
+                </div>
+
+                <!-- 输出格式部分（可选） -->
+                <div class="editor-section css-section">
+                    <div class="editor-header">
+                        <div class="editor-tab">
+                            <span class="file-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path></svg>
+                            </span>
+                            <span class="file-name">输出格式 <span class="optional">(选填)</span></span>
+                        </div>
+                        <div class="tab-actions">
+                            <button class="btn-copy-section" data-section="format">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea id="formatTextarea" class="content-textarea" readonly></textarea>
+                    </div>
+                </div>
+
+                <!-- 样例部分（可选） -->
+                <div class="editor-section js-section">
+                    <div class="editor-header">
+                        <div class="editor-tab">
+                            <span class="file-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            </span>
+                            <span class="file-name">样例 <span class="optional">(选填)</span></span>
+                        </div>
+                        <div class="tab-actions">
+                            <button class="btn-copy-section" data-section="example">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea id="exampleTextarea" class="content-textarea" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-overlay"></div>
+        <div class="preview-content">
+            <div class="preview-header">
+                <h3>预览</h3>
+                <button class="preview-close" id="closePreviewBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="preview-body">
+                <div id="previewContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
